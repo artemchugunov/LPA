@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="LPA.Client.Views.EditTestPage"
+             Title="Редактирование теста">
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="5*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+            <Label FontSize="Large" Text="Название" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" Grid.Row="0" Grid.Column="0"/>
+            <Entry FontSize="Medium" WidthRequest="200" Text="{Binding ViewModel.Name}" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" Grid.Row="0" Grid.Column="1"/>
+            <Label FontSize="Large" Text="Описание" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" Grid.Row="1" Grid.Column="0"/>
+            <Entry FontSize="Medium" WidthRequest="200" Text="{Binding ViewModel.Description}" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" Grid.Row="1" Grid.Column="1"/>
+            <ListView RowHeight="100" ItemsSource="{Binding ViewModel.Test.Questions}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Grid.Row="2" Grid.ColumnSpan="2">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell Height="100">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition Height="2*"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="3*"/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Label FontSize="Large" Text="{Binding Text}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" LineBreakMode="WordWrap" MinimumHeightRequest="100"/>
+                                <Button Text="Редакт." Command="{Binding ViewModel.EditQuestionCmd, Source={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContentPage}}}" CommandParameter="{Binding Id}" IsEnabled="{Binding ViewModel.IsNotBusy, Source={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContentPage}}}" Grid.RowSpan="2" Grid.Column="1" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
+                                <Button Text="Удалить" Command="{Binding ViewModel.DeleteQuestionCmd, Source={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContentPage}}}" CommandParameter="{Binding Id}" IsEnabled="{Binding ViewModel.IsNotBusy, Source={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContentPage}}}" Grid.RowSpan="2" Grid.Column="2" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <Button Text="Добавить" Command="{Binding ViewModel.EditQuestionCmd}" IsEnabled="{Binding ViewModel.IsNotBusy}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Grid.Row="3" Grid.ColumnSpan="2"/>
+            <Button Text="Сохранить" Command="{Binding ViewModel.SaveCmd}" IsEnabled="{Binding ViewModel.IsNotBusy}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Grid.Row="4" Grid.ColumnSpan="2"/>
+            <Button Text="Обновить" Command="{Binding ViewModel.FetchDataCmd}" IsEnabled="{Binding ViewModel.IsNotBusy}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Grid.Row="5" Grid.ColumnSpan="2"/>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

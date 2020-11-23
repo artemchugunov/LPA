@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="LPA.Client.Views.TestsPage"
+             Title="Тесты">
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="8*"/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <ListView RowHeight="150" ItemsSource="{Binding ViewModel.Tests}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell Height="150">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition Height="2*"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="3*"/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Label FontSize="Large" Text="{Binding Name}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" LineBreakMode="WordWrap"/>
+                                <Button Text="Редакт." Command="{Binding ViewModel.EditTestCmd, Source={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContentPage}}}" IsEnabled="{Binding ViewModel.IsNotBusy, Source={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContentPage}}}" CommandParameter="{Binding Id}" Grid.RowSpan="2" Grid.Column="1" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
+                                <Button Text="Удалить" Command="{Binding ViewModel.DeleteTestCmd, Source={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContentPage}}}" IsEnabled="{Binding ViewModel.IsNotBusy, Source={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContentPage}}}" CommandParameter="{Binding Id}" Grid.RowSpan="2" Grid.Column="2" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
+                                <Label FontSize="Large" Text="{Binding Description}" Grid.Row="1" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" MinimumHeightRequest="100" LineBreakMode="WordWrap"/>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <Button Text="Добавить" Command="{Binding ViewModel.EditTestCmd}" IsEnabled="{Binding ViewModel.IsNotBusy}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Grid.Row="1"/>
+            <Button Text="Обновить" Command="{Binding ViewModel.FetchDataCmd}" IsEnabled="{Binding ViewModel.IsNotBusy}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Grid.Row="2"/>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
